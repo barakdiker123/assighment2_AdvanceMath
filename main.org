@@ -123,9 +123,9 @@ The adjancey matrix of the directed graph is equal to the adjancey matrix of the
 
 * Question 3
 Prove that given a directed graph \(G=(V,E)\) where \(V=(1,2,..,n)\) , let A be the adjacency matrix
-\[ l \in \mathbb{N}\cap{\{0\}}: \forall i,j\in V : F(j,i ,l)=(A^l)_{i,j} \]
-where \( F:V \times V \times \mathbb{N}\cap{\{0\}} \rightarrow \mathbb{N}\cap{\{0\}} \)
-are all the walks from node j to i of length l
+\[ k \in \mathbb{N}\cup{\{0\}}: \forall i,j\in V : F(j,i ,k)=(A^k)_{i,j} \]
+where \( F:V \times V \times \mathbb{N}\cup{\{0\}} \rightarrow \mathbb{N}\cup{\{0\}} \)
+are all the walks from node j to i of length k
 
 ** Answer
 We'll prove the theorem by induction
@@ -207,7 +207,175 @@ A_to_power6[3][0]
 #+RESULTS:
 : 23
 
+
+To Calculate the Matrix by power of 8 we will use eigen values \( \det(A-\lambda I_n) = 0 \) lets apply the calculation
+#+attr_latex: :mode math :environment vmatrix :math-prefix \det(A-\lambda I_n) = :math-suffix = 0
+| -\lambda |        1 |        1 |        0 |
+|        0 | -\lambda |        0 |        1 |
+|        1 |        1 | -\lambda |        0 |
+|        1 |        0 |        1 | -\lambda |
+
+In order to find eigen value will python code
+#+name: calculate:question4:walks
+#+ATTR_LATEX: :environment python
+#+begin_example python :session :results value :exports both
+import numpy as np
+from numpy.linalg import eig
+input_array = np.array([[0,1,1,0],
+                           [0,0,0,1],
+                           [1,1,0,0],
+                           [1,0,1,0]])
+w,v=eig(input_array)
+
+w # The vector of eigen values
+# w = | 1.69 | -1 | +0.j | -0.347-1.028j |
+
+#+end_example
+
+#+begin_src python :session :results value :exports none
+import numpy as np
+from numpy.linalg import eig
+input_array = np.array([[0,1,1,0],
+                        [0,0,0,1],
+                        [1,1,0,0],
+                        [1,0,1,0]])
+w,v=eig(input_array)
+w # The vector of eigen values = | 1.69562077+0.j | -1 | +0.j | -0.34781038-1.02885225j |
+
+#+end_src
+
+#+RESULTS:
+| 1.69562077+0.j | -1 | +0.j | -0.34781038+1.02885225j | -0.34781038-1.02885225j |
+
+And finally we do
+#+attr_latex: :mode math :environment pmatrix :math-prefix p^{-1}A^8p =
+| \lambda^8_1 |           0 |           0 |           0 |
+|           0 | \lambda^8_2 |           0 |           0 |
+|           0 |           0 | \lambda^8_3 |           0 |
+|           0 |           0 |           0 | \lambda^8_4 |
+
+
+and change basis to get
+
+#+attr_latex: :mode math :environment pmatrix :math-prefix A^8 =
+| 19 | 23 | 18 | 13 |
+| 13 | 14 | 13 | 10 |
+| 18 | 23 | 19 | 13 |
+| 23 | 26 | 23 | 14 |
+* Question 5
+Prove that the probablity to pass from vertex j to vertex i is given by
+the matrix \( \tilde{A_G} = A_G*D^{-1}_G \)
+where the matrix \( D_G \) is define to be
+
+#+attr_latex: :mode math :environment pmatrix :math-prefix D_G =
+| \deg(1) |       0 | ... |       0 |
+|       0 | \deg(2) | ... |       0 |
+|       0 |       0 | ... |       0 |
+|       0 |       0 | ... | \deg(n) |
+
+
+careful \( \tilde{A_G} \) might not be symmetric
+
+** Answer
+
+\begin{proof}
+Since G is undirected graph and the probablity to travel from j to i is even distributed ,
+the probability matrix is to divide the matrix \(A_G\) column j by \( \deg(j) \) for each \( j \in \mathbb{N}\cap [1,n] \)
+or more formally
+\[
+\forall j \in \mathbb{N}\cap [1,n] \,, ( \hat{A_G} )_{i,j} := \frac{(A_G)_{i,j}}{\deg(j)}
+\]
+
+But Happily this is exactly equivalent to simply multiply the following matrix
+\[
+\tilde{A_G} = A_G*D^{-1}_G
+\]
+i.e
+\[
+\tilde{A_G} = \hat{A_G}
+\]
+Which is what we want it to be
+\end{proof}
+
+
+* Question 6
+let \(p^{(0)}\in \mathbb{R} \) be the initial probability distribution of the graph
+
+let \(p^{(n)} \in \mathbb{R}\) be the distribution of the graph after n walks
+
+prove that
+\[
+p^{(n)} = \tilde{A_G^n} * p^{( 0 )}
+\]
+
+
+
+** Answer
+\begin{proof}
+Given a vertex j and vertex i we first want to find all possible walks from j to i with length n ,
+
+We have already proven that the number of possible walks are \( ( A_G^n )_{i,j} \)
+
+In order to get the required probability we need to find the sum of all walks from j to any vertex i.e
+\[
+\sigma _j = \sum _{i\in V} ( A_G )_{i,j}^{n}
+\]
+
+\[
+( Prob )_{i,j} = \frac{(A_G^n)_{i,j}} { \sigma _j }
+\]
+
+Ultimately , I have proven that the probability of walking n walks from vertex j to i is simply
+\( \tilde{A}^n \)
+
+\end{proof}
+
+Note that we are not yet done we still have to prove that
+\[
+p^{(n)} = \tilde{A}^n * p^{(0)}
+\]
+
+To skip to that click [[final:prove][final]]
+
+Another proof is by induction
+
+\begin{proof}
+\( \tilde{A}^{m+1} = \tilde{A} * \tilde{A}^{m}\)
+
+\underline{\textbf{Base Case:}}
+for n=0 we have \(\tilde{A} = \tilde{A}\)
+
+\underline{\textbf{Step Case:}}
+Given that the claim is true for \(n\in \mathbb{N}\) we will prove it for \(n+1\) ,
+more specificly given j and i we are searching for the probablity of going from j to i  after \(n+1\) walks
+
+Since by assumption we already know the probabilty of walking n long from j to any \(v\in V\)
+ which is \( (A_G^n)_{v,j} \) and also
+we know the probablity of getting from any vertex v into vertex i which is \( ( A_G )_{i,v}  \)
+
+The probabilty of getting from j to i after n+1 walks is by conditional probabilty
+
+\[ Prob^{(n+1)} =  \sum_{v\in V} (A_G)_{i,v}*(A_G^n)_{v,j}\]
+since
+\[
+P(B) = \sum_{i} P(B|A_i) \,, \sum _{i} P(A_i) = 1
+\]
+
+This equation is nothing but \( \tilde{A}^{m+1} = \tilde{A} * \tilde{A}^{m}\)
+\end{proof}
+
+Now Given a vertices \(i \in V\) by the complete probability theorem the probability of getting into vertex i is
+\[ p^{(n)}_i = \sum_{v \in V} \tilde{A}_{i,v}*p^{(0)}_v \]
+But this equation is nothing but what we needed to prove which is
+#+NAME: final:prove
+\begin{equation}
+p^{(n)} = \tilde{A}^n * p^{(0)}
+\end{equation}
+
+
+
 * Introduction
+#+BEGIN_COMMENT
 Kruskal's algorithm[1] finds a minimum spanning forest of an undirected edge-weighted graph. If the graph is connected, it finds a minimum spanning tree. (A minimum spanning tree of a connected graph is a subset of the edges that forms a tree that includes every vertex, where the sum of the weights of all the edges in the tree is minimized. For a disconnected graph, a minimum spanning forest is composed of a minimum spanning tree for each connected component.) It is a greedy algorithm in graph theory as in each step it adds the next lowest-weight edge that will not form a cycle to the minimum spanning forest.[2]
 
 
@@ -216,8 +384,11 @@ This algorithm first appeared in Proceedings of the American Mathematical Societ
 
 Other algorithms for this problem include Prim's algorithm, the reverse-delete algorithm, and Borůvka's algorithm.
 
+#+END_COMMENT
 
 * Simple pseudo code
+#+BEGIN_COMMENT
+
 Here is some code
 
 This is some random text
@@ -262,3 +433,5 @@ Another Example , please note the following
 \EndWhile
 \end{algorithmic}
 \end{algorithm}
+
+#+END_COMMENT

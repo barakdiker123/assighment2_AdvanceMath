@@ -1,4 +1,4 @@
-% Created 2023-06-15 Thu 19:16
+% Created 2023-07-03 Mon 18:42
 % Intended LaTeX compiler: pdflatex
 \documentclass[9pt,twocolumn]{article}
 \usepackage[utf8]{inputenc}
@@ -29,7 +29,7 @@
  pdftitle={Assignment 2},
  pdfkeywords={},
  pdfsubject={},
- pdfcreator={Emacs 28.2 (Org mode 9.6.1)}, 
+ pdfcreator={Emacs 28.2.50 (Org mode 9.6.1)}, 
  pdflang={English}}
 \begin{document}
 
@@ -37,7 +37,7 @@
 
 
 \section*{Question 1}
-\label{sec:org027f6b0}
+\label{sec:org88a22f9}
 
 Given the following graph
 
@@ -49,7 +49,7 @@ Calculate all walks of size 6 in the given graph
 
 
 \subsection*{Answer}
-\label{sec:orgb52fa78}
+\label{sec:org8c868cd}
 In order to do so we'll use the following theorem
 
 \begin{theorem} [ Walks Theorem ]
@@ -104,7 +104,7 @@ int(sum_var/2)
 
 
 \section*{Question 2}
-\label{sec:org1d26e99}
+\label{sec:org5d1d48c}
 Consider the following quote
 \begin{quote}
 ``Undirected Graph can be considered as directed graph''
@@ -115,7 +115,7 @@ Formally , Given an Undirected graph find a directed graph such that \(A_G = A_{
 
 
 \subsection*{Answer}
-\label{sec:org86b991f}
+\label{sec:orgdbfea16}
 Given An undirected graph mark it \(G=(V,E)\) and the adjacency matrix of his as \(A_G\)
 
 Define the directed graph \(G'=(V',E')\) where \(V'=V\) and
@@ -129,14 +129,14 @@ The adjancey matrix of the directed graph is equal to the adjancey matrix of the
 
 
 \section*{Question 3}
-\label{sec:orgc997ab0}
+\label{sec:org141625e}
 Prove that given a directed graph \(G=(V,E)\) where \(V=(1,2,..,n)\) , let A be the adjacency matrix
-\[ l \in \mathbb{N}\cap{\{0\}}: \forall i,j\in V : F(j,i ,l)=(A^l)_{i,j} \]
-where \(F:V \times V \times \mathbb{N}\cap{\{0\}} \rightarrow \mathbb{N}\cap{\{0\}}\)
-are all the walks from node j to i of length l
+\[ k \in \mathbb{N}\cup{\{0\}}: \forall i,j\in V : F(j,i ,k)=(A^k)_{i,j} \]
+where \(F:V \times V \times \mathbb{N}\cup{\{0\}} \rightarrow \mathbb{N}\cup{\{0\}}\)
+are all the walks from node j to i of length k
 
 \subsection*{Answer}
-\label{sec:org25e04e8}
+\label{sec:orgdc15a7c}
 We'll prove the theorem by induction
 \begin{proof}
 By induction
@@ -158,14 +158,14 @@ follows by induction on n
 \end{proof}
 
 \section*{Question 4}
-\label{sec:orgf491d3e}
+\label{sec:org4b8b023}
 Find the number of possible walks of length 8 from 1 to 4 by the following undirected graph
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{Question1_graph.png}
+\includegraphics[width=.9\linewidth]{Question4_graph.png}
 \end{center}
 \subsection*{Answer}
-\label{sec:org9fc08d1}
+\label{sec:org599b2c5}
 We'll Write the adjancey matrix and calculate the \(A^8\)
 
 To do so we'll use the same code
@@ -184,61 +184,176 @@ A_to_power6[3][0]
 # output is 23
 \end{python}
 
+To Calculate the Matrix by power of 8 we will use eigen values \(\det(A-\lambda I_n) = 0\) lets apply the calculation
+\[
+\det(A-\lambda I_n) =\begin{vmatrix}
+ -\lambda & 1 & 1 & 0 \\[0pt]
+ 0 & -\lambda & 0 & 1 \\[0pt]
+ 1 & 1 & -\lambda & 0 \\[0pt]
+ 1 & 0 & 1 & -\lambda \\[0pt]
+\end{vmatrix}= 0
+\]
+
+In order to find eigen value will python code
+\phantomsection
+\label{calculate:question4:walks}
+\begin{python}
+import numpy as np
+from numpy.linalg import eig
+input_array = np.array([[0,1,1,0],
+                           [0,0,0,1],
+                           [1,1,0,0],
+                           [1,0,1,0]])
+w,v=eig(input_array)
+
+w # The vector of eigen values
+# w = | 1.69 | -1 | +0.j | -0.347-1.028j |
+
+\end{python}
+
+And finally we do
+\[
+p^{-1}A^8p =\begin{pmatrix}
+ \lambda^8_1 & 0 & 0 & 0 \\[0pt]
+ 0 & \lambda^8_2 & 0 & 0 \\[0pt]
+ 0 & 0 & \lambda^8_3 & 0 \\[0pt]
+ 0 & 0 & 0 & \lambda^8_4 \\[0pt]
+\end{pmatrix}
+\]
+
+
+and change basis to get
+
+\[
+A^8 =\begin{pmatrix}
+ 19 & 23 & 18 & 13 \\[0pt]
+ 13 & 14 & 13 & 10 \\[0pt]
+ 18 & 23 & 19 & 13 \\[0pt]
+ 23 & 26 & 23 & 14 \\[0pt]
+\end{pmatrix}
+\]
+\section*{Question 5}
+\label{sec:org16fadc2}
+Prove that the probablity to pass from vertex j to vertex i is given by
+the matrix \(\tilde{A_G} = A_G*D^{-1}_G\)
+where the matrix \(D_G\) is define to be
+
+\[
+D_G =\begin{pmatrix}
+ \deg(1) & 0 & ... & 0 \\[0pt]
+ 0 & \deg(2) & ... & 0 \\[0pt]
+ 0 & 0 & ... & 0 \\[0pt]
+ 0 & 0 & ... & \deg(n) \\[0pt]
+\end{pmatrix}
+\]
+
+
+careful \(\tilde{A_G}\) might not be symmetric
+
+\subsection*{Answer}
+\label{sec:org40f3ade}
+
+\begin{proof}
+Since G is undirected graph and the probablity to travel from j to i is even distributed ,
+the probability matrix is to divide the matrix \(A_G\) column j by \( \deg(j) \) for each \( j \in \mathbb{N}\cap [1,n] \)
+or more formally
+\[
+\forall j \in \mathbb{N}\cap [1,n] \,, ( \hat{A_G} )_{i,j} := \frac{(A_G)_{i,j}}{\deg(j)}
+\]
+
+But Happily this is exactly equivalent to simply multiply the following matrix
+\[
+\tilde{A_G} = A_G*D^{-1}_G
+\]
+i.e
+\[
+\tilde{A_G} = \hat{A_G}
+\]
+Which is what we want it to be
+\end{proof}
+
+
+\section*{Question 6}
+\label{sec:orga916ec6}
+let \(p^{(0)}\in \mathbb{R}\) be the initial probability distribution of the graph
+
+let \(p^{(n)} \in \mathbb{R}\) be the distribution of the graph after n walks
+
+prove that
+\[
+p^{(n)} = \tilde{A_G^n} * p^{( 0 )}
+\]
+
+
+
+\subsection*{Answer}
+\label{sec:orgd5faafb}
+\begin{proof}
+Given a vertex j and vertex i we first want to find all possible walks from j to i with length n ,
+
+We have already proven that the number of possible walks are \( ( A_G^n )_{i,j} \)
+
+In order to get the required probability we need to find the sum of all walks from j to any vertex i.e
+\[
+\sigma _j = \sum _{i\in V} ( A_G )_{i,j}^{n}
+\]
+
+\[
+( Prob )_{i,j} = \frac{(A_G^n)_{i,j}} { \sigma _j }
+\]
+
+Ultimately , I have proven that the probability of walking n walks from vertex j to i is simply
+\( \tilde{A}^n \)
+
+\end{proof}
+
+Note that we are not yet done we still have to prove that
+\[
+p^{(n)} = \tilde{A}^n * p^{(0)}
+\]
+
+To skip to that click \hyperref[final:prove]{final}
+
+Another proof is by induction
+
+\begin{proof}
+\( \tilde{A}^{m+1} = \tilde{A} * \tilde{A}^{m}\)
+
+\underline{\textbf{Base Case:}}
+for n=0 we have \(\tilde{A} = \tilde{A}\)
+
+\underline{\textbf{Step Case:}}
+Given that the claim is true for \(n\in \mathbb{N}\) we will prove it for \(n+1\) ,
+more specificly given j and i we are searching for the probablity of going from j to i  after \(n+1\) walks
+
+Since by assumption we already know the probabilty of walking n long from j to any \(v\in V\)
+ which is \( (A_G^n)_{v,j} \) and also
+we know the probablity of getting from any vertex v into vertex i which is \( ( A_G )_{i,v}  \)
+
+The probabilty of getting from j to i after n+1 walks is by conditional probabilty
+
+\[ Prob^{(n+1)} =  \sum_{v\in V} (A_G)_{i,v}*(A_G^n)_{v,j}\]
+since
+\[
+P(B) = \sum_{i} P(B|A_i) \,, \sum _{i} P(A_i) = 1
+\]
+
+This equation is nothing but \( \tilde{A}^{m+1} = \tilde{A} * \tilde{A}^{m}\)
+\end{proof}
+
+Now Given a vertices \(i \in V\) by the complete probability theorem the probability of getting into vertex i is
+\[ p^{(n)}_i = \sum_{v \in V} \tilde{A}_{i,v}*p^{(0)}_v \]
+But this equation is nothing but what we needed to prove which is
+\begin{equation}
+\label{final:prove}
+p^{(n)} = \tilde{A}^n * p^{(0)}
+\end{equation}
+
+
+
 \section*{Introduction}
-\label{sec:orgf6d9620}
-Kruskal's algorithm[1] finds a minimum spanning forest of an undirected edge-weighted graph. If the graph is connected, it finds a minimum spanning tree. (A minimum spanning tree of a connected graph is a subset of the edges that forms a tree that includes every vertex, where the sum of the weights of all the edges in the tree is minimized. For a disconnected graph, a minimum spanning forest is composed of a minimum spanning tree for each connected component.) It is a greedy algorithm in graph theory as in each step it adds the next lowest-weight edge that will not form a cycle to the minimum spanning forest.[2]
-
-
-
-This algorithm first appeared in Proceedings of the American Mathematical Society, pp. 48–50 in 1956, and was written by Joseph Kruskal.[3] It was rediscovered by Loberman \& Weinberger (1957).[4]
-
-Other algorithms for this problem include Prim's algorithm, the reverse-delete algorithm, and Borůvka's algorithm.
-
+\label{sec:orgc2e4ddf}
 
 \section*{Simple pseudo code}
-\label{sec:org5c3a5bb}
-Here is some code
-
-This is some random text
-
-
-
-\begin{mdframed}
-\begin{algorithmic}
-\State $i \gets 10$
-\If{$i\geq 5$}
-    \State $i \gets i-1$
-\Else
-    \If{$i\leq 3$}
-        \State $i \gets i+2$
-    \EndIf
-\EndIf
-\end{algorithmic}
-\end{mdframed}
-
-bla bla bla
-
-
-Another Example , please note the following
-
-
-\begin{algorithm}
-\caption{An algorithm with caption}\label{alg:cap}
-\begin{algorithmic}
-\Require $n \geq 0$
-\Ensure $y = x^n$
-\State $y \gets 1$
-\State $X \gets x$
-\State $N \gets n$
-\While{$N \neq 0$}
-\If{$N$ is even}
-    \State $X \gets X \times X$
-    \State $N \gets \frac{N}{2}$  \Comment{This is a comment}
-\ElsIf{$N$ is odd}
-    \State $y \gets y \times X$
-    \State $N \gets N - 1$
-\EndIf
-\EndWhile
-\end{algorithmic}
-\end{algorithm}
+\label{sec:orgfdef20e}
 \end{document}
