@@ -8,10 +8,12 @@
 #+LATEX_HEADER: \usepackage{cleveref}
 #+LATEX_HEADER: \usepackage{amsthm}
 #+LATEX_HEADER: \usepackage{pythonhighlight}
+#+LATEX_HEADER: \usepackage{amsmath}
 #+LATEX_HEADER_EXTRA:  \usepackage{mdframed}
 #+LATEX_HEADER_EXTRA: \BeforeBeginEnvironment{minted}{\begin{mdframed}}
 #+LATEX_HEADER_EXTRA: \AfterEndEnvironment{minted}{\end{mdframed}}
 #+LATEX_HEADER_EXTRA: \newtheorem{theorem}{Theorem}
+#+LATEX_HEADER_EXTRA: \DeclareMathOperator{\diag}{diag}
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 
@@ -98,7 +100,6 @@ int(sum_var/2)
 
 
 * Question 2
-#+ATTR_LATEX: :environment quotation
 Consider the following quote
 #+BEGIN_QUOTE
 "Undirected Graph can be considered as directed graph"
@@ -371,6 +372,115 @@ But this equation is nothing but what we needed to prove which is
 \begin{equation}
 p^{(n)} = \tilde{A}^n * p^{(0)}
 \end{equation}
+
+
+
+* Question 7
+Prove that \( \tilde{A} \) is diagolizable over \( \mathbb{R} \)
+
+** Answer
+We will use the spectral theory for the prove
+
+[[https://en.wikipedia.org/wiki/Spectral_theory][Spectral Theory]]
+
+\begin{math}
+\underline{\textbf{Reminder:}}
+\end{math}
+Please Note that \( \tilde{A}=A_G*D^{-1}\)
+
+By assumption , we know A is a symmetric matrix ,
+
+lets mark the matrix
+\[ Q\in \mathbb{M}_n(\mathbb{R}) : Q := \diag(\sqrt{ \deg(v_1) },\dots , \sqrt{ \deg(v_n)) } \]
+
+Observe the following logic:
+
+\[
+Q^{-1}*\tilde{A}*Q=Q^{-1}*A*D^{-1}*Q=Q^{-1}*A*Q^{-1}
+\]
+where \(A=A^{t}\)
+
+\begin{align*}
+(Q^{-1}*A*Q^{-1})^{t}&=(A*Q^{-1})^t*(Q^{-1})^t= \\
+                    &=(Q^{-1})^t*A^t*(Q^{-1})^t \\
+                    &=(Q^{-1})^t*A*(Q^{-1})^t \\
+                    &=Q^{-1}*A*Q^{-1}
+\end{align*}
+By this equation we can infer that the matrix
+
+\(Q^{-1}*\tilde{A}*Q\) is
+a symmetric matrix which means that we can use on it the spectral theory
+
+\[
+\exists P\in \mathbb{M}_n(\mathbb{R}) : P^{-1}*(Q^{-1}*\tilde{A}*Q)*P = \diag(\lambda _1 , \lambda _2 , \dots , \lambda _n)
+\]
+\[
+=(QP)^{-1}\tilde{A}QP
+\]
+
+So I have found a matrix QP which diagolize the matrix \(\tilde{A}\)
+
+
+
+
+
+* Question 8
+
+let \(\lambda\) be an eigen value of \(\tilde{A}\) proof that
+\(\lambda\in [-1,1]\)
+
+** Answer
+I'll prove it by contradiction , on the matrix \(\tilde{A}^t\), let \(\lambda\) be eigen value of \(\tilde{A}\)
+\[\exists v\in V : \tilde{A}v=\lambda v\]
+for some \(\lambda > 1 \)
+
+Since the row of the matrix \(\tilde{A}^t\) sums to 1 , each element of \(\tilde{A}^tx\) is an
+[[https://en.wikipedia.org/wiki/Convex_combination][convex combination]] of the components of x , which can't be greater than a \(x_{max}\) where \(x_{max}\) is the maxium
+element of the vector x .
+
+Let's see it formally
+
+\[
+x_{max} := \max_{j\in\mathbb{N}\cap [1,n]}{|x_j|}
+\]
+\[
+\alpha := \tilde{A}^t
+\]
+\[
+\forall \mathbb{N}\cap [1,n] \sum_{j=1}^{n} \alpha_{ij} = 1
+\]
+\begin{align*}
+\forall x\in \mathbb{R}^{n} \,, \forall i\in\mathbb{N}\cap [1,n]  \,, \sum_{j=1}^n\alpha _{ij} x_{j}  &\leq\sum_{j=1}^n \alpha_{ij}x_{max}= \\
+                                                                    &=x_{max} \sum_{j=1}^{n} \alpha_{ij} = x_{max}
+\end{align*}
+In conclusion
+
+#+name: label:equ1
+\begin{equation}
+(\tilde{A}^t x)_{max} \leq x_{max}
+\end{equation}
+
+On the other hand , At least one element of \(\lambda x \) is greater than \(x_{max}\) , which proves that
+\(\lambda > 1\) is impossible
+
+Or , more precisely , let \(\lambda > 1\) be an eigen value of the matrix
+\(\tilde{A}^t\) and let \(v_{\lambda}\) be the normalized eigen vector of
+eigen value \(\lambda\) then
+
+#+name: label:equ2
+\begin{equation}
+(v_{\lambda})_{max} <
+\lambda (v_{\lambda})_{max} =
+( \lambda v_{\lambda} )_{max} =
+( \tilde{A}^t v_{\lambda} )_{max}
+\end{equation}
+
+By equation [[label:equ1]] we can select \(x:=v_{\lambda}\) and we'll have
+\(
+(\tilde{A}^t v_{\lambda})_{max} \leq (v_{\lambda})_{max}
+\) which contradict equation [[label:equ2]]
+
+
 
 
 

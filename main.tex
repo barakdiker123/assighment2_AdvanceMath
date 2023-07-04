@@ -1,4 +1,4 @@
-% Created 2023-07-03 Mon 18:42
+% Created 2023-07-04 Tue 11:47
 % Intended LaTeX compiler: pdflatex
 \documentclass[9pt,twocolumn]{article}
 \usepackage[utf8]{inputenc}
@@ -17,10 +17,12 @@
 \usepackage{cleveref}
 \usepackage{amsthm}
 \usepackage{pythonhighlight}
+\usepackage{amsmath}
 \usepackage{mdframed}
 \BeforeBeginEnvironment{minted}{\begin{mdframed}}
 \AfterEndEnvironment{minted}{\end{mdframed}}
 \newtheorem{theorem}{Theorem}
+\DeclareMathOperator{\diag}{diag}
 \author{Barak-Nadav Diker}
 \date{\today}
 \title{Assignment 2}
@@ -37,7 +39,7 @@
 
 
 \section*{Question 1}
-\label{sec:org88a22f9}
+\label{sec:orga843c03}
 
 Given the following graph
 
@@ -49,7 +51,7 @@ Calculate all walks of size 6 in the given graph
 
 
 \subsection*{Answer}
-\label{sec:org8c868cd}
+\label{sec:org13ca210}
 In order to do so we'll use the following theorem
 
 \begin{theorem} [ Walks Theorem ]
@@ -104,7 +106,7 @@ int(sum_var/2)
 
 
 \section*{Question 2}
-\label{sec:org5d1d48c}
+\label{sec:org78d231e}
 Consider the following quote
 \begin{quote}
 ``Undirected Graph can be considered as directed graph''
@@ -115,7 +117,7 @@ Formally , Given an Undirected graph find a directed graph such that \(A_G = A_{
 
 
 \subsection*{Answer}
-\label{sec:orgdbfea16}
+\label{sec:org8f9fa9f}
 Given An undirected graph mark it \(G=(V,E)\) and the adjacency matrix of his as \(A_G\)
 
 Define the directed graph \(G'=(V',E')\) where \(V'=V\) and
@@ -129,14 +131,14 @@ The adjancey matrix of the directed graph is equal to the adjancey matrix of the
 
 
 \section*{Question 3}
-\label{sec:org141625e}
+\label{sec:org53f515e}
 Prove that given a directed graph \(G=(V,E)\) where \(V=(1,2,..,n)\) , let A be the adjacency matrix
 \[ k \in \mathbb{N}\cup{\{0\}}: \forall i,j\in V : F(j,i ,k)=(A^k)_{i,j} \]
 where \(F:V \times V \times \mathbb{N}\cup{\{0\}} \rightarrow \mathbb{N}\cup{\{0\}}\)
 are all the walks from node j to i of length k
 
 \subsection*{Answer}
-\label{sec:orgdc15a7c}
+\label{sec:org228c224}
 We'll prove the theorem by induction
 \begin{proof}
 By induction
@@ -158,14 +160,14 @@ follows by induction on n
 \end{proof}
 
 \section*{Question 4}
-\label{sec:org4b8b023}
+\label{sec:org994a073}
 Find the number of possible walks of length 8 from 1 to 4 by the following undirected graph
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{Question4_graph.png}
 \end{center}
 \subsection*{Answer}
-\label{sec:org599b2c5}
+\label{sec:org29facfc}
 We'll Write the adjancey matrix and calculate the \(A^8\)
 
 To do so we'll use the same code
@@ -233,7 +235,7 @@ A^8 =\begin{pmatrix}
 \end{pmatrix}
 \]
 \section*{Question 5}
-\label{sec:org16fadc2}
+\label{sec:org5310332}
 Prove that the probablity to pass from vertex j to vertex i is given by
 the matrix \(\tilde{A_G} = A_G*D^{-1}_G\)
 where the matrix \(D_G\) is define to be
@@ -251,7 +253,7 @@ D_G =\begin{pmatrix}
 careful \(\tilde{A_G}\) might not be symmetric
 
 \subsection*{Answer}
-\label{sec:org40f3ade}
+\label{sec:orgf78369a}
 
 \begin{proof}
 Since G is undirected graph and the probablity to travel from j to i is even distributed ,
@@ -274,7 +276,7 @@ Which is what we want it to be
 
 
 \section*{Question 6}
-\label{sec:orga916ec6}
+\label{sec:org87084df}
 let \(p^{(0)}\in \mathbb{R}\) be the initial probability distribution of the graph
 
 let \(p^{(n)} \in \mathbb{R}\) be the distribution of the graph after n walks
@@ -287,7 +289,7 @@ p^{(n)} = \tilde{A_G^n} * p^{( 0 )}
 
 
 \subsection*{Answer}
-\label{sec:orgd5faafb}
+\label{sec:orgd289147}
 \begin{proof}
 Given a vertex j and vertex i we first want to find all possible walks from j to i with length n ,
 
@@ -351,9 +353,119 @@ p^{(n)} = \tilde{A}^n * p^{(0)}
 
 
 
+\section*{Question 7}
+\label{sec:org13a219c}
+Prove that \(\tilde{A}\) is diagolizable over \(\mathbb{R}\)
+
+\subsection*{Answer}
+\label{sec:org2ff1809}
+We will use the spectral theory for the prove
+
+\href{https://en.wikipedia.org/wiki/Spectral\_theory}{Spectral Theory}
+
+\begin{math}
+\underline{\textbf{Reminder:}}
+\end{math}
+Please Note that \(\tilde{A}=A_G*D^{-1}\)
+
+By assumption , we know A is a symmetric matrix ,
+
+lets mark the matrix
+\[ Q\in \mathbb{M}_n(\mathbb{R}) : Q := \diag(\sqrt{ \deg(v_1) },\dots , \sqrt{ \deg(v_n)) } \]
+
+Observe the following logic:
+
+\[
+Q^{-1}*\tilde{A}*Q=Q^{-1}*A*D^{-1}*Q=Q^{-1}*A*Q^{-1}
+\]
+where \(A=A^{t}\)
+
+\begin{align*}
+(Q^{-1}*A*Q^{-1})^{t}&=(A*Q^{-1})^t*(Q^{-1})^t= \\
+                    &=(Q^{-1})^t*A^t*(Q^{-1})^t \\
+                    &=(Q^{-1})^t*A*(Q^{-1})^t \\
+                    &=Q^{-1}*A*Q^{-1}
+\end{align*}
+By this equation we can infer that the matrix
+
+\(Q^{-1}*\tilde{A}*Q\) is
+a symmetric matrix which means that we can use on it the spectral theory
+
+\[
+\exists P\in \mathbb{M}_n(\mathbb{R}) : P^{-1}*(Q^{-1}*\tilde{A}*Q)*P = \diag(\lambda _1 , \lambda _2 , \dots , \lambda _n)
+\]
+\[
+=(QP)^{-1}\tilde{A}QP
+\]
+
+So I have found a matrix QP which diagolize the matrix \(\tilde{A}\)
+
+
+
+
+
+\section*{Question 8}
+\label{sec:org0c65aa3}
+
+let \(\lambda\) be an eigen value of \(\tilde{A}\) proof that
+\(\lambda\in [-1,1]\)
+
+\subsection*{Answer}
+\label{sec:org7e314fe}
+I'll prove it by contradiction , on the matrix \(\tilde{A}^t\), let \(\lambda\) be eigen value of \(\tilde{A}\)
+\[\exists v\in V : \tilde{A}v=\lambda v\]
+for some \(\lambda > 1\)
+
+Since the row of the matrix \(\tilde{A}^t\) sums to 1 , each element of \(\tilde{A}^tx\) is an
+\href{https://en.wikipedia.org/wiki/Convex\_combination}{convex combination} of the components of x , which can't be greater than a \(x_{max}\) where \(x_{max}\) is the maxium
+element of the vector x .
+
+Let's see it formally
+
+\[
+x_{max} := \max_{j\in\mathbb{N}\cap [1,n]}{|x_j|}
+\]
+\[
+\alpha := \tilde{A}^t
+\]
+\[
+\forall \mathbb{N}\cap [1,n] \sum_{j=1}^{n} \alpha_{ij} = 1
+\]
+\begin{align*}
+\forall x\in \mathbb{R}^{n} \,, \forall i\in\mathbb{N}\cap [1,n]  \,, \sum_{j=1}^n\alpha _{ij} x_{j}  &\leq\sum_{j=1}^n \alpha_{ij}x_{max}= \\
+                                                                    &=x_{max} \sum_{j=1}^{n} \alpha_{ij} = x_{max}
+\end{align*}
+In conclusion
+
+\begin{equation}
+\label{label:equ1}
+(\tilde{A}^t x)_{max} \leq x_{max}
+\end{equation}
+
+On the other hand , At least one element of \(\lambda x\) is greater than \(x_{max}\) , which proves that
+\(\lambda > 1\) is impossible
+
+Or , more precisely , let \(\lambda > 1\) be an eigen value of the matrix
+\(\tilde{A}^t\) and let \(v_{\lambda}\) be the normalized eigen vector of
+eigen value \(\lambda\) then
+
+\begin{equation}
+\label{label:equ2}
+(v_{\lambda})_{max} <
+\lambda (v_{\lambda})_{max} =
+( \lambda v_{\lambda} )_{max} =
+( \tilde{A}^t v_{\lambda} )_{max}
+\end{equation}
+
+By equation \ref{label:equ1} we can select \(x:=v_{\lambda}\) and we'll have
+\((\tilde{A}^t v_{\lambda})_{max} \leq (v_{\lambda})_{max}\) which contradict equation \ref{label:equ2}
+
+
+
+
 \section*{Introduction}
-\label{sec:orgc2e4ddf}
+\label{sec:org1781c91}
 
 \section*{Simple pseudo code}
-\label{sec:orgfdef20e}
+\label{sec:org568199d}
 \end{document}
