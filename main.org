@@ -54,7 +54,7 @@ If A is the adjacency matrix of a graph or digraph G with vertices \( \{v1, . . 
 of \(A^k\) is the number of walks of length k from \(v_i\) to \(v_j\)
 \end{theorem}
 
-By [[theorem:walk]] we can just multiple the adjacency matrix by itself 6 times
+By [[theorem:walk][Walks Theorem]] we can just multiple the adjacency matrix by itself 6 times
 and we'll get all the walks available from node i into node j
 
 Since the problem specify undirected graph we'll have to sum all elements of the matrix and divide it by 2
@@ -273,6 +273,7 @@ where the matrix \( D_G \) is define to be
 |       0 | \deg(2) | ... |       0 |
 |       0 |       0 | ... |       0 |
 |       0 |       0 | ... | \deg(n) |
+
 
 
 careful \( \tilde{A_G} \) might not be symmetric
