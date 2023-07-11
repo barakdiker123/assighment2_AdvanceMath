@@ -48,19 +48,19 @@ Calculate all walks of size 6 in the given graph
 ** Answer
 In order to do so we'll use the following theorem
 
-#+name: theorem:walk
+#+name: theorem-walk
 \begin{theorem} [ Walks Theorem ]
 If A is the adjacency matrix of a graph or digraph G with vertices \( \{v1, . . . vn\} \), then the i, j entry
 of \(A^k\) is the number of walks of length k from \(v_i\) to \(v_j\)
 \end{theorem}
 
-By [[theorem:walk][Walks Theorem]] we can just multiple the adjacency matrix by itself 6 times
+By [[theorem-walk][Walks Theorem]] we can just multiple the adjacency matrix by itself 6 times
 and we'll get all the walks available from node i into node j
 
 Since the problem specify undirected graph we'll have to sum all elements of the matrix and divide it by 2
 
 \newpage
-#+NAME: algo:walk
+#+NAME: algo-walk
 \begin{algorithm}
 \caption{All walks of length 6 }
 \begin{algorithmic}
@@ -77,9 +77,9 @@ Since the problem specify undirected graph we'll have to sum all elements of the
 \end{algorithmic}
 \end{algorithm}
 
-We will apply *algorithm* [[algo:walk]]  for getting the number of walk of length 6
+We will apply *algorithm* [[algo-walk]]  for getting the number of walk of length 6
 
-#+name: calculate:walks
+#+name: calculate-walks
 #+ATTR_LATEX: :environment python
 #+begin_example python :session :results value :exports both
 import numpy
@@ -119,7 +119,6 @@ Define the directed graph \(G'=(V',E')\) where \(V'=V\) and
 The adjancey matrix of the directed graph is equal to the adjancey matrix of the undirected graph
 
 \[ A_G=A_{G'} \]
-
 
 
 * Question 3
@@ -179,7 +178,7 @@ We'll Write the adjancey matrix and calculate the \( A^8 \)
 
 To do so we'll use the same code
 
-#+name: calculate:question4:walks
+#+name: calculate-question4-walks
 #+ATTR_LATEX: :environment python
 #+begin_example python :session :results value :exports both
 import numpy
@@ -217,7 +216,7 @@ To Calculate the Matrix by power of 8 we will use eigen values \( \det(A-\lambda
 |        1 |        0 |        1 | -\lambda |
 
 In order to find eigen value will python code
-#+name: calculate:question4:walks
+#+name: calculate-question4-walks-python
 #+ATTR_LATEX: :environment python
 #+begin_example python :session :results value :exports both
 import numpy as np
@@ -337,7 +336,7 @@ Note that we are not yet done we still have to prove that
 p^{(n)} = \tilde{A}^n * p^{(0)}
 \]
 
-To skip to that click [[final:prove][final]]
+To skip to that click [[final-prove][final]]
 
 Another proof is by induction
 
@@ -369,7 +368,7 @@ This equation is nothing but \( \tilde{A}^{m+1} = \tilde{A} * \tilde{A}^{m}\)
 Now Given a vertices \(i \in V\) by the complete probability theorem the probability of getting into vertex i is
 \[ p^{(n)}_i = \sum_{v \in V} \tilde{A}_{i,v}*p^{(0)}_v \]
 But this equation is nothing but what we needed to prove which is
-#+NAME: final:prove
+#+NAME: final-prove
 \begin{equation}
 p^{(n)} = \tilde{A}^n * p^{(0)}
 \end{equation}
@@ -425,6 +424,7 @@ So I have found a matrix QP which diagolize the matrix \(\tilde{A}\)
 
 
 
+
 * Question 8
 
 let \(\lambda\) be an eigen value of \(\tilde{A}\) proof that
@@ -456,7 +456,7 @@ x_{max} := \max_{j\in\mathbb{N}\cap [1,n]}{|x_j|}
 \end{align*}
 In conclusion
 
-#+name: label:equ1
+#+name: label-equ1
 \begin{equation}
 (\tilde{A}^t x)_{max} \leq x_{max}
 \end{equation}
@@ -468,7 +468,7 @@ Or , more precisely , let \(\lambda > 1\) be an eigen value of the matrix
 \(\tilde{A}^t\) and let \(v_{\lambda}\) be the normalized eigen vector of
 eigen value \(\lambda\) then
 
-#+name: label:equ2
+#+name: label-equ2
 \begin{equation}
 (v_{\lambda})_{max} <
 \lambda (v_{\lambda})_{max} =
@@ -476,10 +476,10 @@ eigen value \(\lambda\) then
 ( \tilde{A}^t v_{\lambda} )_{max}
 \end{equation}
 
-By equation [[label:equ1]] we can select \(x:=v_{\lambda}\) and we'll have
+By equation [[label-equ1]] we can select \(x:=v_{\lambda}\) and we'll have
 \(
 (\tilde{A}^t v_{\lambda})_{max} \leq (v_{\lambda})_{max}
-\) which contradict equation [[label:equ2]]
+\) which contradict equation [[label-equ2]]
 
 
 
@@ -497,12 +497,44 @@ Other algorithms for this problem include Prim's algorithm, the reverse-delete a
 
 #+END_COMMENT
 
-* Simple pseudo code
+* TODO Simple pseudo code :ATTACH:
+:PROPERTIES:
+:ID:       5676580d-8e54-46e4-a795-a8a7fddd3c7c
+:END:
+- Note taken on [2023-07-05 Wed 14:42] \\
+  Hello World !!!
+- Note taken on [2023-07-05 Wed 14:37] \\
+  BARAKKKK
+- Note taken on [2023-07-05 Wed 14:36] \\
+  Hello World !!
+- Note taken on [2023-07-05 Wed 14:36] \\
+  Barak the King
+Hello World
+\begin{displaymath}
+\lambda *6
+\end{displaymath}
+
+0:00:23
+0:01:17
+0:01:20
+0:01:22
+[[https://orgmode.org/org.html#Tables-in-LaTeX-export][The Org Manual]]
+0:01:22
+
+0:01:22
+0:01:22
+0:01:22
+0:01:22 0:01:22 0:01:22 0:01:22 0:01:22
+0:00:03 0:00:05 0:00:07 0:00:08 0:00:09 0:00:09 0:00:00 0:00:03 0:00:04
+0:00:06 0:00:07 0:00:00 0:00:00 0:00:02 0:00:03 0:00:02 0:00:03
+
 #+BEGIN_COMMENT
+
 
 Here is some code
 
 This is some random text
+
 
 
 
@@ -546,3 +578,6 @@ Another Example , please note the following
 \end{algorithm}
 
 #+END_COMMENT
+* IDEA
+* KILL
+* IDEA

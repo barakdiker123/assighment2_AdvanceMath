@@ -1,4 +1,4 @@
-% Created 2023-07-04 Tue 16:47
+% Created 2023-07-11 Tue 12:48
 % Intended LaTeX compiler: pdflatex
 \documentclass[9pt,twocolumn]{article}
 \usepackage[utf8]{inputenc}
@@ -39,7 +39,7 @@
 
 
 \section*{Question 1}
-\label{sec:org53c86a7}
+\label{sec:orge4d7814}
 
 Given the following graph
 
@@ -51,16 +51,16 @@ Calculate all walks of size 6 in the given graph
 
 
 \subsection*{Answer}
-\label{sec:orgb4ed19d}
+\label{sec:orgdd6538e}
 In order to do so we'll use the following theorem
 
 \begin{theorem} [ Walks Theorem ]
 If A is the adjacency matrix of a graph or digraph G with vertices \( \{v1, . . . vn\} \), then the i, j entry
 of \(A^k\) is the number of walks of length k from \(v_i\) to \(v_j\)
-\label{theorem:walk}
+\label{theorem-walk}
 \end{theorem}
 
-By \hyperref[theorem:walk]{Walks Theorem} we can just multiple the adjacency matrix by itself 6 times
+By \hyperref[theorem-walk]{Walks Theorem} we can just multiple the adjacency matrix by itself 6 times
 and we'll get all the walks available from node i into node j
 
 Since the problem specify undirected graph we'll have to sum all elements of the matrix and divide it by 2
@@ -80,13 +80,13 @@ Since the problem specify undirected graph we'll have to sum all elements of the
 \State \( sum \gets sum + a \)
 \EndWhile
 \end{algorithmic}
-\label{algo:walk}
+\label{algo-walk}
 \end{algorithm}
 
-We will apply \textbf{algorithm} \ref{algo:walk}  for getting the number of walk of length 6
+We will apply \textbf{algorithm} \ref{algo-walk}  for getting the number of walk of length 6
 
 \phantomsection
-\label{calculate:walks}
+\label{calculate-walks}
 \begin{python}
 import numpy
 from numpy.linalg import matrix_power
@@ -106,7 +106,7 @@ int(sum_var/2)
 
 
 \section*{Question 2}
-\label{sec:org5cbd356}
+\label{sec:org0109cf2}
 Consider the following quote
 \begin{quote}
 ``Undirected Graph can be considered as directed graph''
@@ -117,7 +117,7 @@ Formally , Given an Undirected graph find a directed graph such that \(A_G = A_{
 
 
 \subsection*{Answer}
-\label{sec:org5c6594c}
+\label{sec:org569c23f}
 Given An undirected graph mark it \(G=(V,E)\) and the adjacency matrix of his as \(A_G\)
 
 Define the directed graph \(G'=(V',E')\) where \(V'=V\) and
@@ -129,16 +129,15 @@ The adjancey matrix of the directed graph is equal to the adjancey matrix of the
 \[ A_G=A_{G'} \]
 
 
-
 \section*{Question 3}
-\label{sec:org6393d46}
+\label{sec:org8c1a469}
 Prove that given a directed graph \(G=(V,E)\) where \(V=(1,2,..,n)\) , let A be the adjacency matrix
 \[ k \in \mathbb{N}\cup{\{0\}}: \forall i,j\in V : F(j,i ,k)=(A^k)_{i,j} \]
 where \(F:V \times V \times \mathbb{N}\cup{\{0\}} \rightarrow \mathbb{N}\cup{\{0\}}\)
 are all the walks from node j to i of length k
 
 \subsection*{Answer}
-\label{sec:org5ab1442}
+\label{sec:orgab6aec0}
 We'll prove the theorem by induction
 \begin{proof}
 By induction
@@ -160,20 +159,20 @@ follows by induction on n
 \end{proof}
 
 \section*{Question 4}
-\label{sec:orgae8b498}
+\label{sec:org4c7bffb}
 Find the number of possible walks of length 8 from 1 to 4 by the following undirected graph
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{Question4_graph.png}
 \end{center}
 \subsection*{Answer}
-\label{sec:org750d47b}
+\label{sec:org3216e42}
 We'll Write the adjancey matrix and calculate the \(A^8\)
 
 To do so we'll use the same code
 
 \phantomsection
-\label{calculate:question4:walks}
+\label{calculate-question4-walks}
 \begin{python}
 import numpy
 from numpy.linalg import matrix_power
@@ -198,7 +197,7 @@ To Calculate the Matrix by power of 8 we will use eigen values \(\det(A-\lambda 
 
 In order to find eigen value will python code
 \phantomsection
-\label{calculate:question4:walks}
+\label{calculate-question4-walks-python}
 \begin{python}
 import numpy as np
 from numpy.linalg import eig
@@ -235,7 +234,7 @@ A^8 =\begin{pmatrix}
 \end{pmatrix}
 \]
 \section*{Question 5}
-\label{sec:org95a9be9}
+\label{sec:orgf9ec6f3}
 Prove that the probablity to pass from vertex j to vertex i is given by
 the matrix \(\tilde{A_G} = A_G*D^{-1}_G\)
 where the matrix \(D_G\) is define to be
@@ -254,7 +253,7 @@ D_G =\begin{pmatrix}
 careful \(\tilde{A_G}\) might not be symmetric
 
 \subsection*{Answer}
-\label{sec:org9b098d7}
+\label{sec:orgf3a664f}
 
 \begin{proof}
 Since G is undirected graph and the probablity to travel from j to i is even distributed ,
@@ -277,7 +276,7 @@ Which is what we want it to be
 
 
 \section*{Question 6}
-\label{sec:orgd1f74a7}
+\label{sec:orgab5c376}
 let \(p^{(0)}\in \mathbb{R}\) be the initial probability distribution of the graph
 
 let \(p^{(n)} \in \mathbb{R}\) be the distribution of the graph after n walks
@@ -290,7 +289,7 @@ p^{(n)} = \tilde{A_G^n} * p^{( 0 )}
 
 
 \subsection*{Answer}
-\label{sec:org6ca533d}
+\label{sec:org6fc0320}
 \begin{proof}
 Given a vertex j and vertex i we first want to find all possible walks from j to i with length n ,
 
@@ -315,7 +314,7 @@ Note that we are not yet done we still have to prove that
 p^{(n)} = \tilde{A}^n * p^{(0)}
 \]
 
-To skip to that click \hyperref[final:prove]{final}
+To skip to that click \hyperref[final-prove]{final}
 
 Another proof is by induction
 
@@ -348,18 +347,18 @@ Now Given a vertices \(i \in V\) by the complete probability theorem the probabi
 \[ p^{(n)}_i = \sum_{v \in V} \tilde{A}_{i,v}*p^{(0)}_v \]
 But this equation is nothing but what we needed to prove which is
 \begin{equation}
-\label{final:prove}
+\label{final-prove}
 p^{(n)} = \tilde{A}^n * p^{(0)}
 \end{equation}
 
 
 
 \section*{Question 7}
-\label{sec:org6daf335}
+\label{sec:orgde82dc4}
 Prove that \(\tilde{A}\) is diagolizable over \(\mathbb{R}\)
 
 \subsection*{Answer}
-\label{sec:org45ae385}
+\label{sec:orgc2ef992}
 We will use the spectral theory for the prove
 
 \href{https://en.wikipedia.org/wiki/Spectral\_theory}{Spectral Theory}
@@ -405,14 +404,15 @@ So I have found a matrix QP which diagolize the matrix \(\tilde{A}\)
 
 
 
+
 \section*{Question 8}
-\label{sec:orgf0dd165}
+\label{sec:orgebd9fb3}
 
 let \(\lambda\) be an eigen value of \(\tilde{A}\) proof that
 \(\lambda\in [-1,1]\)
 
 \subsection*{Answer}
-\label{sec:org70f53d1}
+\label{sec:org4115005}
 I'll prove it by contradiction , on the matrix \(\tilde{A}^t\), let \(\lambda\) be eigen value of \(\tilde{A}\)
 \[\exists v\in V : \tilde{A}v=\lambda v\]
 for some \(\lambda > 1\)
@@ -439,7 +439,7 @@ x_{max} := \max_{j\in\mathbb{N}\cap [1,n]}{|x_j|}
 In conclusion
 
 \begin{equation}
-\label{label:equ1}
+\label{label-equ1}
 (\tilde{A}^t x)_{max} \leq x_{max}
 \end{equation}
 
@@ -451,23 +451,57 @@ Or , more precisely , let \(\lambda > 1\) be an eigen value of the matrix
 eigen value \(\lambda\) then
 
 \begin{equation}
-\label{label:equ2}
+\label{label-equ2}
 (v_{\lambda})_{max} <
 \lambda (v_{\lambda})_{max} =
 ( \lambda v_{\lambda} )_{max} =
 ( \tilde{A}^t v_{\lambda} )_{max}
 \end{equation}
 
-By equation \ref{label:equ1} we can select \(x:=v_{\lambda}\) and we'll have
-\((\tilde{A}^t v_{\lambda})_{max} \leq (v_{\lambda})_{max}\) which contradict equation \ref{label:equ2}
+By equation \ref{label-equ1} we can select \(x:=v_{\lambda}\) and we'll have
+\((\tilde{A}^t v_{\lambda})_{max} \leq (v_{\lambda})_{max}\) which contradict equation \ref{label-equ2}
 
 
 
 
 
 \section*{Introduction}
-\label{sec:org4444284}
+\label{sec:orgeff8cc9}
 
-\section*{Simple pseudo code}
-\label{sec:orgc342242}
+\section*{{\bfseries\sffamily TODO} Simple pseudo code\hfill{}\textsc{ATTACH}}
+\label{sec:orgb6dd3db}
+\begin{itemize}
+\item Note taken on \textit{[2023-07-05 Wed 14:42] } \\[0pt]
+Hello World !!!
+\item Note taken on \textit{[2023-07-05 Wed 14:37] } \\[0pt]
+BARAKKKK
+\item Note taken on \textit{[2023-07-05 Wed 14:36] } \\[0pt]
+Hello World !!
+\item Note taken on \textit{[2023-07-05 Wed 14:36] } \\[0pt]
+Barak the King
+\end{itemize}
+Hello World
+\begin{displaymath}
+\lambda *6
+\end{displaymath}
+
+0:00:23
+0:01:17
+0:01:20
+0:01:22
+\href{https://orgmode.org/org.html\#Tables-in-LaTeX-export}{The Org Manual}
+0:01:22
+
+0:01:22
+0:01:22
+0:01:22
+0:01:22 0:01:22 0:01:22 0:01:22 0:01:22
+0:00:03 0:00:05 0:00:07 0:00:08 0:00:09 0:00:09 0:00:00 0:00:03 0:00:04
+0:00:06 0:00:07 0:00:00 0:00:00 0:00:02 0:00:03 0:00:02 0:00:03
+\section*{IDEA}
+\label{sec:org01d2539}
+\section*{KILL}
+\label{sec:org1cca3f2}
+\section*{IDEA}
+\label{sec:org48a7acb}
 \end{document}
