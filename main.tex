@@ -1,4 +1,4 @@
-% Created 2023-07-11 Tue 12:48
+% Created 2023-09-05 Tue 17:57
 % Intended LaTeX compiler: pdflatex
 \documentclass[9pt,twocolumn]{article}
 \usepackage[utf8]{inputenc}
@@ -23,6 +23,8 @@
 \AfterEndEnvironment{minted}{\end{mdframed}}
 \newtheorem{theorem}{Theorem}
 \DeclareMathOperator{\diag}{diag}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
 \author{Barak-Nadav Diker}
 \date{\today}
 \title{Assignment 2}
@@ -31,7 +33,7 @@
  pdftitle={Assignment 2},
  pdfkeywords={},
  pdfsubject={},
- pdfcreator={Emacs 28.2.50 (Org mode 9.6.1)}, 
+ pdfcreator={Emacs 28.2.50 (Org mode 9.7)}, 
  pdflang={English}}
 \begin{document}
 
@@ -39,7 +41,7 @@
 
 
 \section*{Question 1}
-\label{sec:orge4d7814}
+\label{sec:orge35de32}
 
 Given the following graph
 
@@ -49,11 +51,9 @@ Given the following graph
 
 Calculate all walks of size 6 in the given graph
 
-
 \subsection*{Answer}
-\label{sec:orgdd6538e}
+\label{sec:org88b2517}
 In order to do so we'll use the following theorem
-
 \begin{theorem} [ Walks Theorem ]
 If A is the adjacency matrix of a graph or digraph G with vertices \( \{v1, . . . vn\} \), then the i, j entry
 of \(A^k\) is the number of walks of length k from \(v_i\) to \(v_j\)
@@ -106,7 +106,7 @@ int(sum_var/2)
 
 
 \section*{Question 2}
-\label{sec:org0109cf2}
+\label{sec:orge3642a3}
 Consider the following quote
 \begin{quote}
 ``Undirected Graph can be considered as directed graph''
@@ -117,7 +117,7 @@ Formally , Given an Undirected graph find a directed graph such that \(A_G = A_{
 
 
 \subsection*{Answer}
-\label{sec:org569c23f}
+\label{sec:org35d92a6}
 Given An undirected graph mark it \(G=(V,E)\) and the adjacency matrix of his as \(A_G\)
 
 Define the directed graph \(G'=(V',E')\) where \(V'=V\) and
@@ -130,14 +130,14 @@ The adjancey matrix of the directed graph is equal to the adjancey matrix of the
 
 
 \section*{Question 3}
-\label{sec:org8c1a469}
+\label{sec:org79c8969}
 Prove that given a directed graph \(G=(V,E)\) where \(V=(1,2,..,n)\) , let A be the adjacency matrix
 \[ k \in \mathbb{N}\cup{\{0\}}: \forall i,j\in V : F(j,i ,k)=(A^k)_{i,j} \]
 where \(F:V \times V \times \mathbb{N}\cup{\{0\}} \rightarrow \mathbb{N}\cup{\{0\}}\)
 are all the walks from node j to i of length k
 
 \subsection*{Answer}
-\label{sec:orgab6aec0}
+\label{sec:orge51bc19}
 We'll prove the theorem by induction
 \begin{proof}
 By induction
@@ -159,14 +159,14 @@ follows by induction on n
 \end{proof}
 
 \section*{Question 4}
-\label{sec:org4c7bffb}
+\label{sec:orgd02a53c}
 Find the number of possible walks of length 8 from 1 to 4 by the following undirected graph
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{Question4_graph.png}
 \end{center}
 \subsection*{Answer}
-\label{sec:org3216e42}
+\label{sec:org7d8fd95}
 We'll Write the adjancey matrix and calculate the \(A^8\)
 
 To do so we'll use the same code
@@ -234,7 +234,7 @@ A^8 =\begin{pmatrix}
 \end{pmatrix}
 \]
 \section*{Question 5}
-\label{sec:orgf9ec6f3}
+\label{sec:org749cd62}
 Prove that the probablity to pass from vertex j to vertex i is given by
 the matrix \(\tilde{A_G} = A_G*D^{-1}_G\)
 where the matrix \(D_G\) is define to be
@@ -253,7 +253,7 @@ D_G =\begin{pmatrix}
 careful \(\tilde{A_G}\) might not be symmetric
 
 \subsection*{Answer}
-\label{sec:orgf3a664f}
+\label{sec:org5f3182e}
 
 \begin{proof}
 Since G is undirected graph and the probablity to travel from j to i is even distributed ,
@@ -276,7 +276,7 @@ Which is what we want it to be
 
 
 \section*{Question 6}
-\label{sec:orgab5c376}
+\label{sec:org4671f85}
 let \(p^{(0)}\in \mathbb{R}\) be the initial probability distribution of the graph
 
 let \(p^{(n)} \in \mathbb{R}\) be the distribution of the graph after n walks
@@ -289,7 +289,7 @@ p^{(n)} = \tilde{A_G^n} * p^{( 0 )}
 
 
 \subsection*{Answer}
-\label{sec:org6fc0320}
+\label{sec:org4a829e5}
 \begin{proof}
 Given a vertex j and vertex i we first want to find all possible walks from j to i with length n ,
 
@@ -354,11 +354,11 @@ p^{(n)} = \tilde{A}^n * p^{(0)}
 
 
 \section*{Question 7}
-\label{sec:orgde82dc4}
+\label{sec:org56f79a5}
 Prove that \(\tilde{A}\) is diagolizable over \(\mathbb{R}\)
 
 \subsection*{Answer}
-\label{sec:orgc2ef992}
+\label{sec:org9250fec}
 We will use the spectral theory for the prove
 
 \href{https://en.wikipedia.org/wiki/Spectral\_theory}{Spectral Theory}
@@ -406,13 +406,13 @@ So I have found a matrix QP which diagolize the matrix \(\tilde{A}\)
 
 
 \section*{Question 8}
-\label{sec:orgebd9fb3}
+\label{sec:org661e71c}
 
 let \(\lambda\) be an eigen value of \(\tilde{A}\) proof that
 \(\lambda\in [-1,1]\)
 
 \subsection*{Answer}
-\label{sec:org4115005}
+\label{sec:org104feee}
 I'll prove it by contradiction , on the matrix \(\tilde{A}^t\), let \(\lambda\) be eigen value of \(\tilde{A}\)
 \[\exists v\in V : \tilde{A}v=\lambda v\]
 for some \(\lambda > 1\)
@@ -466,10 +466,10 @@ By equation \ref{label-equ1} we can select \(x:=v_{\lambda}\) and we'll have
 
 
 \section*{Introduction}
-\label{sec:orgeff8cc9}
+\label{sec:org7ade61d}
 
 \section*{{\bfseries\sffamily TODO} Simple pseudo code\hfill{}\textsc{ATTACH}}
-\label{sec:orgb6dd3db}
+\label{sec:orgd8d4fe5}
 \begin{itemize}
 \item Note taken on \textit{[2023-07-05 Wed 14:42] } \\[0pt]
 Hello World !!!
@@ -498,10 +498,10 @@ Hello World
 0:01:22 0:01:22 0:01:22 0:01:22 0:01:22
 0:00:03 0:00:05 0:00:07 0:00:08 0:00:09 0:00:09 0:00:00 0:00:03 0:00:04
 0:00:06 0:00:07 0:00:00 0:00:00 0:00:02 0:00:03 0:00:02 0:00:03
-\section*{IDEA}
-\label{sec:org01d2539}
-\section*{KILL}
-\label{sec:org1cca3f2}
-\section*{IDEA}
-\label{sec:org48a7acb}
+\section*{{\bfseries\sffamily IDEA} }
+\label{sec:orgf389a63}
+\section*{{\bfseries\sffamily KILL} }
+\label{sec:org609a9d6}
+\section*{{\bfseries\sffamily IDEA} }
+\label{sec:org8875032}
 \end{document}

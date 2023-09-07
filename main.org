@@ -14,6 +14,8 @@
 #+LATEX_HEADER_EXTRA: \AfterEndEnvironment{minted}{\end{mdframed}}
 #+LATEX_HEADER_EXTRA: \newtheorem{theorem}{Theorem}
 #+LATEX_HEADER_EXTRA: \DeclareMathOperator{\diag}{diag}
+#+LATEX_HEADER_EXTRA: \theoremstyle{definition}
+#+LATEX_HEADER_EXTRA: \newtheorem{definition}{Definition}[section]
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 
@@ -44,10 +46,8 @@ node [shape=record];
 
 Calculate all walks of size 6 in the given graph
 
-
 ** Answer
 In order to do so we'll use the following theorem
-
 #+name: theorem-walk
 \begin{theorem} [ Walks Theorem ]
 If A is the adjacency matrix of a graph or digraph G with vertices \( \{v1, . . . vn\} \), then the i, j entry
